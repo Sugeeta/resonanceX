@@ -3,3 +3,4 @@ pandas
 matplotlib
 rebound
 scipy
+plotly
