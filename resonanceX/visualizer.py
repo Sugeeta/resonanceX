@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 
-def create_orbit_animation(positions, planet_labels, use_dynamic_scaling=True, show_trails=True, trail_length=50):
+def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_trails=True):
     """
     Creates a 3D animated orbit visualization using Plotly.
 
