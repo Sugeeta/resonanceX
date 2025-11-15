@@ -1,0 +1,91 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+*.env
+
+# Package distribution
+build/
+dist/
+*.egg-info/
+*.eggs/
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Streamlit cache and config
+.streamlit/
+
+# Environment and secrets
+.env
+.env.*
+*.secret
+secrets.yaml
+config.yaml
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Compiled C extensions
+*.so
+
+# MyPy and static analysis
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Profiling data
+*.prof
+
+# PyInstaller
+*.spec
+
+# VS Code Python settings
+.python-version
+
+# GitHub workflows
+.github/
+
+# Optional: ignore notebooks if not used
+*.ipynb
