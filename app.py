@@ -132,17 +132,31 @@ with tab5:
             if st.button("Run N-Body Simulation"):
                 try:
                     positions = simulate_orbits(periods, masses, duration, steps, use_resonant_chain=use_resonance)
-                    st.write("Sample orbit data:", positions[0][:5])
 
-                    fig_orbit = create_orbit_animation(positions, selected_planets, use_dynamic_scaling, show_trails)
-                    st.plotly_chart(fig_orbit, use_container_width=True)
+                    if not positions or not isinstance(positions, list):
+                        st.error("Simulation returned no data.")
+                    else:
+                        st.write("Sample orbit data:", positions[0][:5])
 
-                    if show_resonance_plot:
-                        resonance_pairs = detect_resonances(periods)
-                        if resonance_pairs:
-                            with st.expander("View Resonance Plot"):
-                                fig_resonance = plot_resonances(resonance_pairs)
-                                st.pyplot(fig_resonance)
+                        fig_orbit = create_orbit_animation(
+                            positions, selected_planets,
+                            dynamic_scaling=use_dynamic_scaling,
+                            show_trails=show_trails
+                        )
+
+                        if isinstance(fig_orbit, go.Figure):
+                            st.plotly_chart(fig_orbit)
+                        else:
+                            st.error("Orbit animation did not return a valid Plotly figure.")
+
+                        if show_resonance_plot:
+                            resonance_pairs = detect_resonances(periods)
+                            if resonance_pairs:
+                                with st.expander("View Resonance Plot"):
+                                    fig_resonance = plot_resonances(resonance_pairs)
+                                    st.pyplot(fig_resonance)
+                            else:
+                                st.warning("No resonance pairs found.")
 
                 except Exception as e:
                     import traceback
