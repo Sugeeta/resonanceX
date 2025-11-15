@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 
-def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_trails=True):
+def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_trails=True, trail_length=30):
     """
     Creates a 3D animated orbit visualization using Plotly.
 
     Args:
         positions (list of list of (x, y)): Planet trajectories.
         planet_labels (list of str): Labels for each planet.
-        use_dynamic_scaling (bool): Whether to auto-scale the plot.
+        dynamic_scaling (bool): Whether to auto-scale the plot.
         show_trails (bool): Whether to show orbit trails.
         trail_length (int): Number of past positions to show in trail.
 
@@ -20,7 +20,7 @@ def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_
     inclinations = np.linspace(0, 0.2, len(positions))
     min_len = min(len(orbit) for orbit in positions)
 
-    if use_dynamic_scaling:
+    if dynamic_scaling:
         max_radius = max(np.max([np.linalg.norm(pos) for pos in orbit]) for orbit in positions)
         scale = max_radius * 1.5
     else:
@@ -49,7 +49,7 @@ def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_
             z_history[i] = z_history[i][-trail_length:]
 
             label = planet_labels[i] if i < 2 else None
-            base_color = (50+i*20, 100+i*10, 200-i*15)
+            base_color = (50 + i * 20, 100 + i * 10, 200 - i * 15)
             color = f'rgb{base_color}'
 
             data.append(go.Scatter3d(
@@ -86,7 +86,7 @@ def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_
         x, y = orbit[0]
         z = y * np.sin(inclinations[i])
         label = planet_labels[i] if i < 2 else None
-        color = f'rgb({50+i*20}, {100+i*10}, {200-i*15})'
+        color = f'rgb({50 + i * 20}, {100 + i * 10}, {200 - i * 15})'
         init_data.append(go.Scatter3d(
             x=[x], y=[y], z=[z],
             mode='markers+text' if label else 'markers',
@@ -100,7 +100,7 @@ def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_
         scene=dict(
             xaxis=dict(range=[-scale, scale], title='X'),
             yaxis=dict(range=[-scale, scale], title='Y'),
-            zaxis=dict(range=[-scale/2, scale/2], title='Z'),
+            zaxis=dict(range=[-scale / 2, scale / 2], title='Z'),
             aspectmode='cube'
         ),
         margin=dict(l=0, r=0, b=0, t=30),
@@ -108,7 +108,10 @@ def create_orbit_animation(positions, planet_labels, dynamic_scaling=True, show_
         updatemenus=[dict(
             type="buttons",
             showactive=False,
-            buttons=[dict(label="▶ Play", method="animate", args=[None, {"frame": {"duration": 40, "redraw": True}, "fromcurrent": True}])]
+            buttons=[dict(label="▶ Play", method="animate", args=[None, {
+                "frame": {"duration": 40, "redraw": True},
+                "fromcurrent": True
+            }])]
         )]
     )
 
